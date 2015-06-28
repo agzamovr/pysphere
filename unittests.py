@@ -14,5 +14,8 @@ class TestModule(unittest.TestCase):
   def test_cross_track_distance(self):
       self.assertAlmostEqual(pysphere.cross_track_distance(52.516288, 13.377689, 52.590117, 13.39915, 52.437385, 13.553989), 5.552993, places=6)
 
+  def test_along_track_distance(self):
+      self.assertAlmostEqual(pysphere.along_track_distance(52.516288, 13.377689, 52.590117, 13.39915, 52.437385, 13.553989), 6.218037, places=6)
+
 if __name__ == '__main__':
     unittest.main()

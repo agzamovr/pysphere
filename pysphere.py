@@ -45,3 +45,18 @@ def cross_track_distance(lat1, lon1, lat_start, lon_start, lat_end, lon_end, r =
     t12 = radians(bearing(lat_start, lon_start, lat_end, lon_end))
 
     return asin(sin(d13) * sin(t13-t12)) * r;
+
+def along_track_distance(lat1, lon1, lat_start, lon_start, lat_end, lon_end, r = 6371):
+    """
+    The along-track distance is the distance from the start point to the
+    closest point to point A, on the path to the end point.
+    """
+
+    # d13 is (angular) distance from start point to point A
+    d13 = haversine(lat_start, lon_start, lat1, lon1, r) / r
+    # dxt is (angular) cross-track distance
+    dxt = cross_track_distance(lat1, lon1, lat_start, lon_start, lat_end, lon_end, r) / r
+
+    dat = acos(cos(d13)/cos(dxt)) * r
+
+    return dat;
