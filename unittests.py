@@ -31,5 +31,15 @@ class TestModule(unittest.TestCase):
       p_end = (52.437385, 13.553989)
       self.assertAlmostEqual(pysphere.along_track_distance(p_start, p_end, p), 6.218037, places=6)
 
+  def test_line_length_01(self):
+      p1 = (52.529198, 13.274099)
+      p2 = (52.531835, 13.29234)
+      p3 = (52.522116, 13.298541)
+      p4 = (52.520569,13.317349)
+      self.assertAlmostEqual(pysphere.line_length((p1, p2, p3, p4)),
+                             pysphere.haversine(p1, p2) + pysphere.haversine(p2, p3) + pysphere.haversine(p3, p4)
+                             , places=6)
+
+
 if __name__ == '__main__':
     unittest.main()

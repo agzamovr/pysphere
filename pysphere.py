@@ -50,3 +50,6 @@ def along_track_distance(p_start, p_end, p, r = 6371):
     d13 = haversine(p_start, p, r) / r
     dxt = cross_track_distance(p_start, p_end, p, r) / r
     return acos(cos(d13)/cos(dxt)) * r;
+
+def line_length(line):
+    return sum([haversine(p, line[i+1]) for i, p in enumerate(line[:-1])])
