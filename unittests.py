@@ -40,6 +40,29 @@ class TestModule(unittest.TestCase):
                              pysphere.haversine(p1, p2) + pysphere.haversine(p2, p3) + pysphere.haversine(p3, p4)
                              , places=6)
 
+  def test_distance_to_segment_00(self):
+      p         = (52.516288, 13.377689)
+      p_start   = (52.590117, 13.39915)
+      p_end     = (52.437385, 13.553989)
+      self.assertAlmostEqual(pysphere.distance_to_segment(p_start, p_end, p),
+                             pysphere.cross_track_distance(p_start, p_end, p),
+                             places=6)
+
+  def test_distance_to_segment_01(self):
+      p         = (52.516288, 13.377689)
+      p1        = (52.529198, 13.274099)
+      p2        = (52.531835, 13.29234)
+      self.assertAlmostEqual(pysphere.distance_to_segment(p1, p2, p),
+                             pysphere.haversine(p2, p),
+                             places=6)
+
+  def test_distance_to_segment_02(self):
+      p         = (52.516288, 13.377689)
+      p1        = (52.522462, 13.392328)
+      p2        = (52.520921, 13.399703)
+      self.assertAlmostEqual(pysphere.distance_to_segment(p1, p2, p),
+                             pysphere.haversine(p1, p),
+                             places=6)
 
 if __name__ == '__main__':
     unittest.main()

@@ -53,3 +53,19 @@ def along_track_distance(p_start, p_end, p, r = 6371):
 
 def line_length(line):
     return sum([haversine(p, line[i+1]) for i, p in enumerate(line[:-1])])
+
+def distance_to_segment(p_start, p_end, p, r = 6371):
+    """
+    Distance of a point p from a segment p_start, p_end
+    """
+    segment_length      = haversine(p_start, p_end)
+    along_p_start_end   = along_track_distance(p_start, p_end, p)
+    along_p_end_start   = along_track_distance(p_end, p_start, p)
+
+    if (along_p_start_end > segment_length):
+        if (along_p_start_end > along_p_end_start):
+            return haversine(p_end, p)
+        else:
+            return haversine(p_start, p)
+    else:
+        return cross_track_distance(p_start, p_end, p, r)
